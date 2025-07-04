@@ -11,3 +11,15 @@
   ],
   "postCreateCommand": "flutter doctor"
 }
+{
+  "name": "Flutter Dev",
+  "build": { "dockerfile": "Dockerfile" },
+  "remoteUser": "vscode",
+  "extensions": ["Dart-Code.flutter", "Dart-Code.dart-code"],
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+  "postCreateCommand": "flutter doctor",
+  "forwardPorts": [3000]
+}
+ 
