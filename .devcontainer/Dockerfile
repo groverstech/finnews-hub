@@ -1,20 +1,12 @@
 FROM mcr.microsoft.com/devcontainers/base:ubuntu
-
-# Install dependencies
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive     && apt-get install -y curl git unzip xz-utils zip libglu1-mesa
-
-# Install Flutter
-RUN git clone https://github.com/flutter/flutter.git -b stable /opt/flutter     && echo 'export PATH="/opt/flutter/bin:$PATH"' >> /etc/bash.bashrc
-
-ENV PATH="/opt/flutter/bin:$PATH"
-FROM mcr.microsoft.com/devcontainers/base:ubuntu
  
-# Required system packages
+# Install system packages
 RUN apt-get update && apt-get install -y \
-  curl git unzip xz-utils zip libglu1-mesa
+    curl git unzip xz-utils zip libglu1-mesa \
+    && rm -rf /var/lib/apt/lists/*
  
 # Install Flutter
-RUN git clone https://github.com/flutter/flutter.git -b stable /opt/flutter \
-&& echo 'export PATH="/opt/flutter/bin:$PATH"' >> /etc/bash.bashrc
+RUN git clone https://github.com/flutter/flutter.git -b stable /opt/flutter
  
-ENV PATH="/opt/flutter/bin:$PATH"
+# Set Flutter to PATH
+ENV PATH="/opt/flutter/bin:/opt/flutter/bin/cache/dart-sdk/bin:${PATH}"
